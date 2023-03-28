@@ -30,18 +30,28 @@
                 dye_resolution: 512,
 
                 paused: false,
+                clamp_values: true,
                 embedded_dither: true,
 
+                /* Fluid Dissipation Behaviors*/
                 dissipation: 1, //help change fluidité
                 velocity: 0.25, //help change fluidité
                 pressure: .8,
                 pressure_iteration: 20,
+
+                /* Fluid Color */
+                fluid_color: [
+                    [0, 0, 0],
+                ],
+
+                /* Characteristics */
                 curl: 0,
                 emitter_size: 0.02,  //help change size
 
                 render_shaders: true,
                 multi_color: false,
 
+                /* Bloom */
                 render_bloom: false,
                 bloom_iterations: 8,
                 bloom_resolution: 256,
@@ -49,10 +59,13 @@
                 threshold: 0.6,
                 soft_knee: 0.7,
 
-                fluid_color: [
-                    [0, 0, 0],
-                ],
+                // bloom_resolution: 256*4,
+                // bloom_iterations: 1,
+                // intensity: 0.6,
+                // threshold: 0.3,
+                // soft_knee: 1.0,
 
+                /* Background */
                 background_color: { r: 255, g: 0, b: 0 },
                 transparent: true
             })
