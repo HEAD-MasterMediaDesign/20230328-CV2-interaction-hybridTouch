@@ -8,6 +8,7 @@ import { initWebGL, activator, setDitherURL } from './initializer';
 
 module.exports = class Fluid {
     constructor(canvas){
+        console.log('helooooooooo 2')
         this.PARAMS = behavior;
 
         /* Set canvas to desired width and height
