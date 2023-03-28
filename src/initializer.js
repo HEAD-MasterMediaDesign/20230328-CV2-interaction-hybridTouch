@@ -775,6 +775,30 @@ export function activator(canvas, webGL, colorFormat, PROGRAMS, pointers) {
         };
     }
 
+    canvas.addEventListener('touchstart', () => {
+        pointers[0].down = true;
+        pointers[0].color = generateColor();
+    });
+
+    window.addEventListener('touchend', () => {
+        pointers[0].down = false;
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+        /**
+         * @type {TouchList}
+         */
+        const touchList = e.touches
+
+        for(const touch of touchList) {
+            pointers[0].moved = pointers[0].down;
+            pointers[0].dx = (touch.clientX - pointers[0].x) * 5.0;
+            pointers[0].dy = (touch.clientY - pointers[0].y) * 5.0;
+            pointers[0].x = touch.clientX;
+            pointers[0].y = touch.clientY;
+        }
+    })
+
     canvas.addEventListener('mousemove', e => {
         pointers[0].moved = pointers[0].down;
         pointers[0].dx = (e.offsetX - pointers[0].x) * 5.0;
