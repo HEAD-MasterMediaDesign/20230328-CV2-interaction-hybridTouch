@@ -13,88 +13,110 @@
 <!--        ></div>-->
 
         <!-- Declare a canvas element -->
-        <img alt="img result" src="" class="img-result">
-        <canvas id="renderSurface"></canvas>
+        <div
+                class="img-result-container"
+        >
+            <img alt="img result" src="" class="img-result">
+        </div>
+        <div
+                id="renderSurfaceContainer"
+        ></div>
 
         <script>
+            let timer = 4
 
-            /* Get a reference to your canvas */
-            const canvas = document.getElementById('renderSurface');
+            const canvasContainer = document.getElementById('renderSurfaceContainer');
 
-            /* Initiate the Fluid object with that canvas */
-            const fluid = new Fluid(canvas);
+            function initFluid() {
+                /* Get a reference to your canvas */
+                const canvas = document.createElement('canvas')
+                canvasContainer.appendChild(canvas)
+                canvas.width = window.innerWidth / 2
+                canvas.height = window.innerHeight / 2
 
-            fluid.mapBehaviors({
+                /* Initiate the Fluid object with that canvas */
+                const fluid = new Fluid(canvas);
 
-                sim_resolution: 128,
-                dye_resolution: 512,
+                fluid.mapBehaviors({
 
-                paused: false,
-                clamp_values: true,
-                embedded_dither: true,
+                    sim_resolution: 128,
+                    dye_resolution: 512,
 
-                /* Fluid Dissipation Behaviors*/
-                dissipation: 1, //help change fluidité
-                velocity: 0.25, //help change fluidité
-                pressure: .8,
-                pressure_iteration: 20,
+                    paused: false,
+                    clamp_values: true,
+                    embedded_dither: true,
 
-                /* Fluid Color */
-                fluid_color: [
-                    [0, 0, 0],
-                ],
+                    /* Fluid Dissipation Behaviors*/
+                    dissipation: 1, //help change fluidité
+                    velocity: 0.25, //help change fluidité
+                    pressure: .8,
+                    pressure_iteration: 20,
 
-                /* Characteristics */
-                curl: 0,
-                emitter_size: 0.02,  //help change size
+                    /* Fluid Color */
+                    fluid_color: [
+                        [0, 0, 0],
+                    ],
 
-                render_shaders: true,
-                multi_color: false,
+                    /* Characteristics */
+                    curl: 0,
+                    emitter_size: 0.02,  //help change size
 
-                /* Bloom */
-                render_bloom: false,
-                bloom_iterations: 8,
-                bloom_resolution: 256,
-                intensity: 0.8,
-                threshold: 0.6,
-                soft_knee: 0.7,
+                    render_shaders: true,
+                    multi_color: false,
 
-                // bloom_resolution: 256*4,
-                // bloom_iterations: 1,
-                // intensity: 0.6,
-                // threshold: 0.3,
-                // soft_knee: 1.0,
+                    /* Bloom */
+                    render_bloom: false,
+                    bloom_iterations: 8,
+                    bloom_resolution: 256,
+                    intensity: 0.8,
+                    threshold: 0.6,
+                    soft_knee: 0.7,
 
-                /* Background */
-                // background_color: { r: 0, g: 0, b: 0 },
-                transparent: true,
-            })
+                    // bloom_resolution: 256*4,
+                    // bloom_iterations: 1,
+                    // intensity: 0.6,
+                    // threshold: 0.3,
+                    // soft_knee: 1.0,
 
-            /* Activate the fluid */
-            fluid.activate();
+                    /* Background */
+                    // background_color: { r: 0, g: 0, b: 0 },
+                    transparent: true,
+                })
 
-            // fluid.reset();
+                /* Activate the fluid */
+                fluid.activate();
 
-            canvas.addEventListener('touchend', () => {
-                console.log(canvas.toDataURL('image/jpeg'))
-                document.querySelector('.img-result').width = canvas.width
-                document.querySelector('.img-result').height = canvas.height
+                canvas.addEventListener('touchend', () => {
+                    timer = 0
+                    document.querySelector('.img-result:last-child').width  = canvas.width
+                    document.querySelector('.img-result:last-child').height = canvas.height
+                    document.querySelector('.img-result:last-child').src = canvas.toDataURL()
 
-                document.querySelector('.img-result').src = canvas.toDataURL()
-            })
+                    canvasContainer.querySelector('canvas').remove()
+                    initFluid()
+                })
+            }
+            initFluid()
+
+            window.setInterval(() => {
+                timer++
+                if(timer === 3) {
+                    const img = document.createElement('img')
+                    img.className = 'img-result'
+                    document.querySelector('.img-result-container').appendChild(img)
+                }
+            }, 1000)
 
         </script>
     </body>
 <style>
-    #renderSurface {
+    #renderSurfaceContainer > canvas {
         z-index: 0;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        filter: url(#linear) brightness(3.7) hue-rotate(838deg) saturate(2) blur(2px);
-        -webkit-filter: url(#linear) brightness(3.7) hue-rotate(838deg) saturate(2) blur(2px);
     }
 
     .cache-color {
@@ -110,11 +132,38 @@
         left: 0;
     }
 
+    .img-result-container {
+        position: fixed;
+        z-index: 10;
+        pointer-events: none;
+    }
+
     .img-result {
         position: fixed;
         top: 0;
         left: 0;
         pointer-events: none;
+        z-index: 20;
+    }
+
+    .img-result:nth-child(1n + 1) {
+        filter: url(#linear) brightness(3.7) hue-rotate(838deg) saturate(2) blur(2px);
+        -webkit-filter: url(#linear) brightness(3.7) hue-rotate(838deg) saturate(2) blur(2px);
+    }
+
+    .img-result:nth-child(2n + 2) {
+        filter: url(#linear) brightness(3.7) hue-rotate(838deg) saturate(2) blur(2px);
+        -webkit-filter: url(#linear) brightness(3.7) hue-rotate(128deg) saturate(10) blur(2px);
+    }
+
+    .img-result:nth-child(3n + 3) {
+        filter: url(#linear) brightness(3.7) hue-rotate(838deg) saturate(2) blur(2px);
+        -webkit-filter: url(#linear) brightness(1) hue-rotate(528deg) saturate(1) blur(2px);
+    }
+
+    .img-result:nth-child(4n + 4) {
+        filter: url(#linear) brightness(3.7) hue-rotate(838deg) saturate(2) blur(2px);
+        -webkit-filter: url(#linear) brightness(1.7) hue-rotate(268deg) saturate(5) blur(5px);
     }
 </style>
 
