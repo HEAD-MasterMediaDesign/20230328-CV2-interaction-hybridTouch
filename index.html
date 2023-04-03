@@ -13,6 +13,7 @@
 <!--        ></div>-->
 
         <!-- Declare a canvas element -->
+        <img alt="img result" src="" class="img-result">
         <canvas id="renderSurface"></canvas>
 
         <script>
@@ -74,8 +75,12 @@
 
             // fluid.reset();
 
-            canvas.addEventListener('touchstart', () => {
-                console.log('touch !')
+            canvas.addEventListener('touchend', () => {
+                console.log(canvas.toDataURL('image/jpeg'))
+                document.querySelector('.img-result').width = canvas.width
+                document.querySelector('.img-result').height = canvas.height
+
+                document.querySelector('.img-result').src = canvas.toDataURL()
             })
 
         </script>
@@ -103,6 +108,13 @@
         position: fixed;
         top: 0;
         left: 0;
+    }
+
+    .img-result {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
     }
 </style>
 

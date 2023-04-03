@@ -47,7 +47,7 @@ export const DRAWING_PARAMS = {
     depth: false,
     stencil: false,
     antialias: false,
-    preserveDrawingBuffer: false,
+    preserveDrawingBuffer: true,
     powerPreference: "default"
 };
 
