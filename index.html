@@ -1,114 +1,114 @@
 <!-- Welcome to Fluid.JS -->
 <!DOCTYPE html>
 <html lang="en">
-    <head> <!-- The Magic 🔮 -->
-        <script src="lib/fluid.min.js"></script>
-        <meta charset="UTF-8">
-        <title>Welcome to Fluid.js</title>
-    </head>
+<head> <!-- The Magic 🔮 -->
+    <script src="lib/fluid.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Welcome to Fluid.js</title>
+</head>
 
-    <body style="margin: 0;">
+<body style="margin: 0;">
 <!--        <div-->
 <!--                class="cache-color"-->
 <!--        ></div>-->
 
-        <!-- Declare a canvas element -->
-        <div
-                class="img-result-container"
-        >
-            <img alt="img result" src="" class="img-result">
-        </div>
-        <div
-                id="renderSurfaceContainer"
-        ></div>
+<!-- Declare a canvas element -->
+<div
+        class="img-result-container"
+>
+    <img alt="img result" src="" class="img-result">
+</div>
+<div
+        id="renderSurfaceContainer"
+></div>
 
-        <script>
-            let timer = 4
+<script>
+    let timer = 4
 
-            const canvasContainer = document.getElementById('renderSurfaceContainer');
+    const canvasContainer = document.getElementById('renderSurfaceContainer');
 
-            function initFluid() {
-                /* Get a reference to your canvas */
-                const canvas = document.createElement('canvas')
-                canvasContainer.appendChild(canvas)
-                canvas.width = window.innerWidth / 2
-                canvas.height = window.innerHeight / 2
+    function initFluid() {
+        /* Get a reference to your canvas */
+        const canvas = document.createElement('canvas')
+        canvasContainer.appendChild(canvas)
+        canvas.width = window.innerWidth / 2
+        canvas.height = window.innerHeight / 2
 
-                /* Initiate the Fluid object with that canvas */
-                const fluid = new Fluid(canvas);
+        /* Initiate the Fluid object with that canvas */
+        const fluid = new Fluid(canvas);
 
-                fluid.mapBehaviors({
+        fluid.mapBehaviors({
 
-                    sim_resolution: 128,
-                    dye_resolution: 512,
+            sim_resolution: 128,
+            dye_resolution: 512,
 
-                    paused: false,
-                    clamp_values: true,
-                    embedded_dither: true,
+            paused: false,
+            clamp_values: true,
+            embedded_dither: true,
 
-                    /* Fluid Dissipation Behaviors*/
-                    dissipation: 1, //help change fluidité
-                    velocity: 0.25, //help change fluidité
-                    pressure: .8,
-                    pressure_iteration: 20,
+            /* Fluid Dissipation Behaviors*/
+            dissipation: 1, //help change fluidité
+            velocity: 0.25, //help change fluidité
+            pressure: .8,
+            pressure_iteration: 20,
 
-                    /* Fluid Color */
-                    fluid_color: [
-                        [0, 0, 0],
-                    ],
+            /* Fluid Color */
+            fluid_color: [
+                [0, 0, 0],
+            ],
 
-                    /* Characteristics */
-                    curl: 0,
-                    emitter_size: 0.02,  //help change size
+            /* Characteristics */
+            curl: 0,
+            emitter_size: 0.02,  //help change size
 
-                    render_shaders: true,
-                    multi_color: false,
+            render_shaders: true,
+            multi_color: false,
 
-                    /* Bloom */
-                    render_bloom: false,
-                    bloom_iterations: 8,
-                    bloom_resolution: 256,
-                    intensity: 0.8,
-                    threshold: 0.6,
-                    soft_knee: 0.7,
+            /* Bloom */
+            render_bloom: false,
+            bloom_iterations: 8,
+            bloom_resolution: 256,
+            intensity: 0.8,
+            threshold: 0.6,
+            soft_knee: 0.7,
 
-                    // bloom_resolution: 256*4,
-                    // bloom_iterations: 1,
-                    // intensity: 0.6,
-                    // threshold: 0.3,
-                    // soft_knee: 1.0,
+            // bloom_resolution: 256*4,
+            // bloom_iterations: 1,
+            // intensity: 0.6,
+            // threshold: 0.3,
+            // soft_knee: 1.0,
 
-                    /* Background */
-                    // background_color: { r: 0, g: 0, b: 0 },
-                    transparent: true,
-                })
+            /* Background */
+            // background_color: { r: 0, g: 0, b: 0 },
+            transparent: true,
+        })
 
-                /* Activate the fluid */
-                fluid.activate();
+        /* Activate the fluid */
+        fluid.activate();
 
-                canvas.addEventListener('touchend', () => {
-                    timer = 0
-                    document.querySelector('.img-result:last-child').width  = canvas.width
-                    document.querySelector('.img-result:last-child').height = canvas.height
-                    document.querySelector('.img-result:last-child').src = canvas.toDataURL()
+        canvas.addEventListener('touchend', () => {
+            timer = 0
+            document.querySelector('.img-result:last-child').width  = canvas.width
+            document.querySelector('.img-result:last-child').height = canvas.height
+            document.querySelector('.img-result:last-child').src = canvas.toDataURL()
 
-                    canvasContainer.querySelector('canvas').remove()
-                    initFluid()
-                })
-            }
+            canvasContainer.querySelector('canvas').remove()
             initFluid()
+        })
+    }
+    initFluid()
 
-            window.setInterval(() => {
-                timer++
-                if(timer === 3) {
-                    const img = document.createElement('img')
-                    img.className = 'img-result'
-                    document.querySelector('.img-result-container').appendChild(img)
-                }
-            }, 1000)
+    window.setInterval(() => {
+        timer++
+        if(timer === 3) {
+            const img = document.createElement('img')
+            img.className = 'img-result'
+            document.querySelector('.img-result-container').appendChild(img)
+        }
+    }, 1000)
 
-        </script>
-    </body>
+</script>
+</body>
 <style>
     html, body {
         background-color: black;
@@ -162,7 +162,7 @@
 
     .img-result:nth-child(3n + 3) {
         filter: url(#linear) brightness(3.7) hue-rotate(838deg) saturate(2) blur(2px);
-        -webkit-filter: url(#linear) brightness(1) hue-rotate(528deg) saturate(1) blur(2px);
+        -webkit-filter: url(#linear) brightness(1) hue-rotate(/*52*/8deg) saturate(1) blur(2px);
     }
 
     .img-result:nth-child(4n + 4) {
@@ -171,17 +171,17 @@
     }
 </style>
 
-    <svg xmlns="http://www.w3.org/2000/svg">
-        <filter id="linear">
-            <feColorMatrix
-                    type="matrix"
-    values="
+<svg xmlns="http://www.w3.org/2000/svg">
+    <filter id="linear">
+        <feColorMatrix
+                type="matrix"
+                values="
 0 0.7 -2 3 0
 -0.2 -0.2 1 0 0
 1 -3 11 -1.1 0
 0.4 0 0 1 0
 
 "/>
-        </filter>
-    </svg>
+    </filter>
+</svg>
 </html>
