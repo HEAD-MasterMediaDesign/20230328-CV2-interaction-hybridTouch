@@ -15,9 +15,8 @@
         <!-- Declare a canvas element -->
         <canvas id="renderSurface"></canvas>
 
-        <img src="https://source.unsplash.com/random" alt="img">
-
         <script>
+
             /* Get a reference to your canvas */
             const canvas = document.getElementById('renderSurface');
 
@@ -66,14 +65,19 @@
                 // soft_knee: 1.0,
 
                 /* Background */
-                background_color: { r: 0, g: 0, b: 0 },
-                transparent: false,
+                // background_color: { r: 0, g: 0, b: 0 },
+                transparent: true,
             })
 
             /* Activate the fluid */
             fluid.activate();
 
-            fluid.reset()
+            // fluid.reset();
+
+            canvas.addEventListener('touchstart', () => {
+                console.log('touch !')
+            })
+
         </script>
     </body>
 <style>
