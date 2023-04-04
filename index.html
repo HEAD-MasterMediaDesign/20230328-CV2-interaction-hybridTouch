@@ -16,7 +16,7 @@
 <div
         class="img-result-container"
 >
-    <img alt="img result" src="" class="img-result">
+    <img alt="img result" src="" class="img-result_1">
 </div>
 <div
         id="renderSurfaceContainer"
@@ -24,6 +24,7 @@
 
 <script>
     let timer = 4
+    let imgCreatedCounter = 1
 
     const canvasContainer = document.getElementById('renderSurfaceContainer');
 
@@ -55,6 +56,7 @@
             /* Fluid Color */
             fluid_color: [
                 [0, 0, 0],
+                [.4, .2, 0]
             ],
 
             /* Characteristics */
@@ -88,21 +90,26 @@
 
         canvas.addEventListener('touchend', () => {
             timer = 0
-            document.querySelector('.img-result:last-child').width  = canvas.width
-            document.querySelector('.img-result:last-child').height = canvas.height
-            document.querySelector('.img-result:last-child').src = canvas.toDataURL()
+            document.querySelector('[class*=img-result_]:last-child').width  = canvas.width
+            document.querySelector('[class*=img-result_]:last-child').height = canvas.height
+            document.querySelector('[class*=img-result_]:last-child').src = canvas.toDataURL()
 
             canvasContainer.querySelector('canvas').remove()
             initFluid()
+
+            if(document.querySelector('.img-result-container').childElementCount > 3)
+                document.querySelector('.img-result-container').firstChild.remove()
         })
     }
     initFluid()
 
     window.setInterval(() => {
         timer++
+
         if(timer === 3) {
+            imgCreatedCounter++
             const img = document.createElement('img')
-            img.className = 'img-result'
+            img.className = 'img-result_' + imgCreatedCounter % 4
             document.querySelector('.img-result-container').appendChild(img)
         }
     }, 1000)
@@ -142,7 +149,7 @@
         pointer-events: none;
     }
 
-    .img-result {
+    [class*=img-result_] {
         position: fixed;
         top: 0;
         left: 0;
@@ -150,22 +157,22 @@
         z-index: 20;
     }
 
-    .img-result:nth-child(1n + 1) {
+    .img-result_0 {
         filter: url(#linear) brightness(3.7) hue-rotate(838deg) saturate(2) blur(2px);
         -webkit-filter: url(#linear) brightness(5.4) hue-rotate(248deg) saturate(2) blur(2px);
     }
 
-    .img-result:nth-child(2n + 2) {
+    .img-result_1 {
         filter: url(#linear) brightness(3.7) hue-rotate(838deg) saturate(2) blur(2px);
         -webkit-filter: url(#linear) brightness(3.7) hue-rotate(128deg) saturate(10) blur(2px);
     }
 
-    .img-result:nth-child(3n + 3) {
+    .img-result_2 {
         filter: url(#linear) brightness(3.7) hue-rotate(838deg) saturate(2) blur(2px);
         -webkit-filter: url(#linear) brightness(1) hue-rotate(/*52*/8deg) saturate(1) blur(2px);
     }
 
-    .img-result:nth-child(4n + 4) {
+    .img-result_3 {
         filter: url(#linear) brightness(3.7) hue-rotate(838deg) saturate(2) blur(2px);
         -webkit-filter: url(#linear) brightness(1.7) hue-rotate(268deg) saturate(5) blur(5px);
     }
